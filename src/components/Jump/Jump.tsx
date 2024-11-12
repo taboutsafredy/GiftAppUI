@@ -5,7 +5,7 @@ import styles from './Jump.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Lottia } from '../Lottia';
 import { useTranslation } from 'react-i18next';
-
+import { initHapticFeedback } from '@telegram-apps/sdk';
 
 interface IJumpItem {
     label: string;
@@ -38,6 +38,8 @@ function Jump() {
     const navigate = useNavigate();
     const location = useLocation();
     const [currentActiveTab, setCurrentActiveTab] = useState<string>("Store");
+    const hapticFeedback = initHapticFeedback();
+
 
     useEffect(() => {
         const basePath = `/${location.pathname.split('/')[1]}`;
@@ -58,12 +60,9 @@ function Jump() {
     }, [location.pathname]);
 
     const handleTabChange = async (tab: string) => {
-        // const hapticFeedback = initHapticFeedback();
-        // hapticFeedback.selectionChanged();
+        hapticFeedback.selectionChanged();
 
         setCurrentActiveTab(tab);
-        console.log(tab); // Store
-        console.log(currentActiveTab); // Gifts
         
         switch (tab) {
             case "Gifts":

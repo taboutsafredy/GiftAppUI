@@ -7,14 +7,17 @@ import { Eth, Ton, Usdt } from "../../assets/icons/Icons";
 import { Lottia } from "../Lottia";
 import { IGift } from "../../type";
 import { useTranslation } from "react-i18next";
+import { initHapticFeedback } from "@telegram-apps/sdk";
 
 function GiftStoreItem ({ gift }: {gift: IGift}) {
     
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { _id, name, price, asset, totalInStock, quantityPurchased } = gift;
+    const hapticFeedback = initHapticFeedback();
 
     const handleBuyGiftClick = (giftId: string) => {
+            hapticFeedback.impactOccurred('light');
             navigate(`/${giftId}`);
     };
 

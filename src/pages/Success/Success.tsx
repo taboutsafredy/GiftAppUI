@@ -10,7 +10,7 @@ import { useGiftContext } from "../../contexts/GiftContext";
 import { useUserContext } from "../../contexts/UserContext";
 import { IUserTransaction } from "../../type";
 import { useTranslation } from "react-i18next";
-
+import { initBackButton, initHapticFeedback } from "@telegram-apps/sdk";
 
 function Success ( ) {
     const { t } = useTranslation();
@@ -21,6 +21,16 @@ function Success ( ) {
     const successType = successId?.split("__")[0];
     const originalSuccessId = successId?.split("__")[1]!;
     const type :"purchased" | "received" = successType == "purch" ? "purchased" : "received";
+    const toastShown = useRef(false);
+    const navigate = useNavigate();
+    const [backButton] = initBackButton();
+    if (type === "purchased") {
+        backButton.show();
+        backButton.on('click', () => {
+            navigate("/");
+        });
+    }
+    const hapticFeedback = initHapticFeedback();
 
     useEffect(() => {
         const fetchDetailsInTheTwoCases = async () => {
@@ -35,18 +45,18 @@ function Success ( ) {
         fetchDetailsInTheTwoCases();
     }, []);
 
-
-    const toastShown = useRef(false);
-    const navigate = useNavigate();
     const handleOpenProfile = () => {
+        hapticFeedback.impactOccurred("light");
         navigate("/profile");
     }
 
     const handleOpenStore = () => {
+        hapticFeedback.impactOccurred("light");
         navigate("/");
     }
 
     const handleSendGift = () => {
+        hapticFeedback.impactOccurred("light");
         navigate("/gifts")
     }
 

@@ -20,6 +20,10 @@ function GiftPurchasedItem( { gift }: {gift: IUserTransaction}) {
         miniApp.switchInlineQuery(`${gift._id}`, ['users']);
     }
 
+    const handleClose = () => {
+        hapticFeedback.impactOccurred('light');
+    }
+
     return (
         <div className={styles.giftPurchasedItem}>
             <h3 className={styles.title}>{gift.giftId.name}</h3>
@@ -48,7 +52,7 @@ function GiftPurchasedItem( { gift }: {gift: IUserTransaction}) {
                     >
                         <div data-vaul-no-drag className={styles.aboutThisGift}>
                             <Drawer.Close asChild={true} className={styles.closeBtnContainer}>
-                                <div>
+                                <div onClick={() => handleClose()}>
                                     <div className={styles.closeIt}>
                                         <Close/>
                                     </div>

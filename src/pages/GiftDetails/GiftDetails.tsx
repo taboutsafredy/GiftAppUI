@@ -1,6 +1,6 @@
 // Path: src/pages/GiftDetails/GiftDetails.tsx
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./GiftDetails.module.css";
 import { useEffect, useState } from "react";
 import { Ethbg, Tonbg, Usdtbg } from "../../assets/icons/Icons";
@@ -12,7 +12,7 @@ import { IGift } from "../../type";
 import { formatQuantity } from "../../utils/formatQuantity";
 import { initInitData, initUtils } from "@telegram-apps/sdk";
 import { useTranslation, Trans } from "react-i18next";
-
+import { initBackButton } from '@telegram-apps/sdk';
 
 function GiftDetails () {
     const { t } = useTranslation();
@@ -21,6 +21,13 @@ function GiftDetails () {
     const [ gift, setGift ] = useState<IGift | undefined>(undefined);
     const initData = initInitData();
     const utils = initUtils();
+    const navigate = useNavigate();
+    const [backButton] = initBackButton();
+
+    backButton.show();
+    backButton.on('click', () => {
+        navigate("/");
+    });
 
     useEffect(() => {
         const selectedGift = gifts.find(gift => gift._id === giftId);

@@ -11,7 +11,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import { IGiftReceived, ICurrentProfile } from '../../type';
 import { useParams } from 'react-router-dom';
 import { getUser, getUserRank } from '../../api/api';
-import { initInitData } from '@telegram-apps/sdk';
+import { initBackButton, initInitData, initHapticFeedback } from '@telegram-apps/sdk';
 
 function Profile() {
     const { userId } = useParams<{ userId: string }>();
@@ -22,13 +22,23 @@ function Profile() {
     const [ currentProfile, sentCurrentProfile ] = useState<ICurrentProfile | null>(null);
     const [isLightTheme, setIsLightTheme] = useState(false);
     const { t, i18n } = useTranslation();
+    const [backButton] = initBackButton();
+    const hapticFeedback = initHapticFeedback();
 
+    if (!itsCurrentUser) {
+        backButton.show();
+        backButton.on('click', () => {
+            navigate("/leaderboard");
+        });
+    }
 
     useEffect(() => {
         if (isLightTheme) {
+          hapticFeedback.selectionChanged();
           document.body.classList.add('light');
           document.body.classList.remove('dark');
         } else {
+          hapticFeedback.selectionChanged();
           document.body.classList.add('dark');
           document.body.classList.remove('light');
         }
@@ -65,6 +75,7 @@ function Profile() {
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
+        hapticFeedback.selectionChanged();
     };
 
     const navigate = useNavigate();

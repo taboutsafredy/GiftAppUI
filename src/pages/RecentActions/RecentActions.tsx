@@ -8,25 +8,24 @@ import HistoryItem from "../../components/HistoryItem/HistoryItem";
 import { useUserContext } from "../../contexts/UserContext";
 import { IUserTransaction } from "../../type";
 import { Trans, useTranslation } from "react-i18next";
-
-
-const groupTransactionsByDate = (transactions: IUserTransaction[]) => {
-  return transactions.reduce((groups: Record<string, IUserTransaction[]>, transaction) => {
-    const date = transaction.createdAt.toISOString().split("T")[0];
-    if (!groups[date]) {
-      groups[date] = [];
-    }
-    groups[date].push(transaction);
-    return groups;
-  }, {});
-};
+import { initBackButton, initHapticFeedback } from "@telegram-apps/sdk";
+import { groupTransactionsByDate } from "../../utils/groupTransactions";
 
 function RecentActions () {
-  const { t } = useTranslation();
-  const { transactionHistory } = useUserContext();
 
+    const [backButton] = initBackButton();
+    const { t } = useTranslation();
+    const { transactionHistory } = useUserContext();
     const navigate = useNavigate();
+    const hapticFeedback = initHapticFeedback();
+
+    backButton.show();
+    backButton.on('click', () => {
+        navigate("/profile");
+    });
+
     const handleOpenStore = () => {
+        hapticFeedback.impactOccurred("light");
         navigate("/");
     };
     

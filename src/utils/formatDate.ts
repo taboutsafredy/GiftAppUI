@@ -5,10 +5,7 @@
 * An formatDate function which takes a date string and returns a formatted date string.
 */
 
-import { useTranslation } from "react-i18next";
-const { t } = useTranslation();
-
-export const formatDate = (dateString: string): string => {
+export const formatDate = (dateString: string, t: (key: string) => string): string => {
     const date = new Date(dateString);
   
     const day = String(date.getDate()).padStart(2, '0');

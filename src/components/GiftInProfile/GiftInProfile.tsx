@@ -9,9 +9,14 @@ import GiftInfoCard from '../GiftInfoCard/GiftInfoCard';
 import { Close } from '../../assets/icons/Icons';
 import { IGiftReceived } from '../../type';
 import { useTranslation } from 'react-i18next';
+import { initHapticFeedback } from '@telegram-apps/sdk';
 
 function GiftInProfile ({ gift }: {gift: IGiftReceived}) {
     const { t } = useTranslation();
+    const hapticFeedback = initHapticFeedback();
+    const handleClose = () => {
+        hapticFeedback.impactOccurred('light');
+    }
 
     return (
         <Drawer.Root 
@@ -42,7 +47,7 @@ function GiftInProfile ({ gift }: {gift: IGiftReceived}) {
             >
                 <div data-vaul-no-drag className={styles.aboutThisGift}>
                     <Drawer.Close asChild={true} className={styles.closeBtnContainer}>
-                        <div>
+                        <div onClick={() => handleClose()} >
                             <div className={styles.closeIt}>
                                 <Close/>
                             </div>
@@ -62,7 +67,7 @@ function GiftInProfile ({ gift }: {gift: IGiftReceived}) {
                     <Drawer.Title className={styles.giftTitle}>{gift.giftId.name}</Drawer.Title>
                     <GiftInfoCard type="received" gift={gift} />
                     <Drawer.Close asChild={true} className={styles.closeSheetContainer}>
-                        <div>
+                        <div onClick={() => handleClose()}>
                             <Button labelOne={t('closeLabel')} />
                         </div>
                     </Drawer.Close>

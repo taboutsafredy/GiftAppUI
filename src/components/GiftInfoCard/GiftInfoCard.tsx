@@ -28,7 +28,7 @@ function GiftInfoCard ({gift, type}: { gift: IUserTransaction, type: string }) {
           </GiftInfoRow>
           
           <GiftInfoRow label={t("Date")}>
-            <span>{formatDate(gift.createdAt.toISOString())}</span>
+            <span>{formatDate(gift.createdAt.toISOString(), t)}</span>
           </GiftInfoRow>
           
           <GiftInfoRow label={t("Price")}>

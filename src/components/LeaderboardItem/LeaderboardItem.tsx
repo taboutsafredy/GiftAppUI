@@ -6,6 +6,7 @@ import { ITopUserByGiftsReceived } from "../../type";
 import { useNavigate } from "react-router-dom";
 import { initInitData } from "@telegram-apps/sdk";
 import { useTranslation } from "react-i18next";
+import { initHapticFeedback } from "@telegram-apps/sdk";
 
 function LeaderboardItem ({ user } : {user: ITopUserByGiftsReceived}) {
     const { t } = useTranslation();
@@ -13,10 +14,12 @@ function LeaderboardItem ({ user } : {user: ITopUserByGiftsReceived}) {
     const getUserId = initData?.user?.id.toString()!;
     const {_id, firstName, lastName, profilePicture, receivedCount, rank } = user;
     const itsCurrentUser = getUserId === _id;
+    const hapticFeedback = initHapticFeedback();
 
     const navigate = useNavigate();
     const handleOpenProfile = () => {
         if (itsCurrentUser) return;
+        hapticFeedback.selectionChanged();
         navigate(`/leaderboard/${_id}`)
     }
 

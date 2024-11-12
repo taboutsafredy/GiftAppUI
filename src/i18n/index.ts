@@ -3,11 +3,10 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// Importer les fichiers de traduction
+// Import translation files
 import translationEN from './locales/en/translation.json';
 import translationRU from './locales/ru/translation.json';
 
-// Définir les ressources de traduction
 const resources = {
   en: {
     translation: translationEN,
@@ -17,17 +16,16 @@ const resources = {
   },
 };
 
-// Initialiser i18n
+// init i18n
 i18n
-  .use(initReactI18next) // Passe pendant l'initialisation à react-i18next
+  .use(initReactI18next)
   .init({
     resources,
-    lng: 'en', // Langue par défaut
-    fallbackLng: 'en', // Langue de repli
+    lng: 'en',
+    fallbackLng: 'ru',
 
-    keySeparator: false, // Utilise des clés simples
     interpolation: {
-      escapeValue: false, // React s'occupe de l'échappement
+      escapeValue: false,
     },
   });
 
