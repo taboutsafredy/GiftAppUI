@@ -1,0 +1,119 @@
+/* Path: src/pages/Success/Success.module.css */
+
+.success {
+    width: 100%;
+    height: 100vh;
+    padding: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification {
+    width: 100%;
+    height: 54px;
+    padding: 9px 16px 9px 16px;
+
+    border-radius: 14px;
+    background-color: var(--bg-notification);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideUp 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.notification .left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+}
+
+.left .notifDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.notification .right {
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: 510;
+    letter-spacing: -.43px;
+    text-align: right;
+
+    color: var(--accent-cyan);
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.notifDescription h2 {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -.15px;
+    color: var(--white);
+}
+
+.notifDescription p {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -.15px;
+    color: var(--white);
+}
+
+.success .gift {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.gift .lotties {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gift .giftDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.gift .giftDescription h1 {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    color: var(--color);
+}
+
+.gift .giftDescription p {
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -.43px;
+    align-items: center;
+    color: var(--color);
+}
+
+.gift .giftDescription p strong {
+    font-weight: 500;
+}
+
+@keyframes slideUp {
+    from {
+      transform: translateY(200%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+}

@@ -1,0 +1,123 @@
+/* Path: src/index.css */
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('./assets/fonts/SF-Pro-Text-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  font-family: "SF Pro Text", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 200;
+
+  color-scheme: light dark;
+  color: #FFFFFF;
+  background-color: #000000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Common variables */
+  --font-primary: "SF Pro Text", sans-serif;
+  --white: #FFFFFF;
+  --primary: #007AFF;
+  --remaining: #007AFF1F;
+  --reverse: #1C1C1E;
+  --accent-blue: #007AFF;
+  --accent-cyan: #5AC8FA;
+  --accent-gold: #F1AA05;
+  --accent-purple: #AF51DE;
+  --accent-green: #35C759;
+  --separator: #3C3C435C;
+  --icons: #959595;
+  --label-secondary: #8E8E93;
+  --bg-label-secondary: #8e8e9333;
+  --label-tab-bar: #545458A6;
+  --label-date: #6D6D71;
+
+  /* Light mode (by default) */
+  --color: #000000;
+  --reverse-color: #FFFFFF;
+  --background-color: #FFFFFF;
+  --bg-sheet: #EFEFF3;
+  --bg-card: #FFFFFF;
+  --bg-secondary: #EFEFF3;
+  --bg-notification: #2D2D2DCC;
+  --bg-tab-bar: #F1F1F2BF;
+  --bg-toggle: #EFEFF3;
+  --bg-toggle-active: #FFFFFF;
+  --search-bar: #EFEFF3;
+  --close: #e3e3e8;
+}
+
+/* Dark theme based on system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color: #FFFFFF;
+    --reverse-color: #000000;
+    --background-color: #1C1C1E;
+    --bg-sheet: #1C1C1E;
+    --bg-card: #2C2C2E;
+    --bg-secondary: #2C2C2E;
+    --bg-notification: #000000CC;
+    --bg-tab-bar: #1E1E1EBF;
+    --bg-toggle: #000000;
+    --bg-toggle-active: #2C2C2E;
+    --search-bar: #00000080;
+    --close: #2d2d2f;
+  }
+}
+
+/* Light theme class */
+.light {
+  --color: #000000;
+  --reverse-color: #FFFFFF;
+  --background-color: #FFFFFF;
+  --bg-sheet: #EFEFF3;
+  --bg-card: #FFFFFF;
+  --bg-secondary: #EFEFF3;
+  --bg-notification: #2D2D2DCC;
+  --bg-tab-bar: #F1F1F2BF;
+  --bg-toggle: #EFEFF3;
+  --bg-toggle-active: #FFFFFF;
+  --search-bar: #EFEFF3;
+  --close: #e3e3e8;
+}
+
+/* Dark theme class */
+.dark {
+  --color: #FFFFFF;
+  --reverse-color: #000000;
+  --background-color: #1C1C1E;
+  --bg-sheet: #1C1C1E;
+  --bg-card: #2C2C2E;
+  --bg-secondary: #2C2C2E;
+  --bg-notification: #000000CC;
+  --bg-tab-bar: #1E1E1EBF;
+  --bg-toggle: #000000;
+  --bg-toggle-active: #2C2C2E;
+  --search-bar: #00000080;
+  --close: #2d2d2f;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--color);
+  background-color: var(--background-color);
+  font-family: var(--font-primary);
+  transition: all 0.3s ease;
+}
+
+html, body {
+  touch-action: manipulation; 
+}

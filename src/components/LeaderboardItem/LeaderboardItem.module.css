@@ -1,0 +1,92 @@
+/* Path: src/components/LeaderboardItem/LeaderboardItem.tsx */
+
+.leaderboardItem {
+    width: 100%;
+    height: 56px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    padding: 8px 16px 0 16px;
+}
+
+.leaderboardItem .left {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.leaderboardItem .right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+
+    border-bottom: .33px solid var(--separator);
+    padding-bottom: 8px;
+}
+
+.right .rightNameAndGifts {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+
+.rightNameAndGifts h3 {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 22px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    color: var(--color);
+}
+
+.rightNameAndGifts h3 .tagCurrentUser {
+    width: 28px;
+    height: 14px;
+    font-size: 11px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 4px;
+    padding: 0 4px;
+    background-color: var(--bg-label-secondary);
+    color: var(--label-secondary);
+}
+
+.rightNameAndGifts p {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.right .rank {
+    font-size: 15px;
+    font-weight: 510px;
+    line-height: 22px;
+
+    color: var(--label-secondary);
+}
+
+.leaderboardItem:last-child .right {
+    border-bottom: none;
+}

@@ -1,0 +1,142 @@
+/* Path: src/components/GiftInProfile/GiftInProfile.module.css */
+
+.giftInProfile {
+    width: 115px;
+    height: 160px;
+
+    padding: 10px;
+    border-radius: 12px;
+    background-color: var(--bg-secondary);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.giftInProfile .pfpAndRemainingQuantity {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.pfpAndRemainingQuantity img {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: absolute;
+    top: 9px;
+    left: 6px;
+}
+
+.pfpAndRemainingQuantity p {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -.08px;
+    text-align: right;
+
+    color: var(--label-secondary);
+}
+
+.giftInProfile .giftName {
+    width: 100%;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -.44px;
+    text-align: center;
+    font-weight: 400;
+
+    color: var(--color);
+}
+
+.customOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.customOverlay::before {
+    content: "";
+    background-color: var(--reverse-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+}
+
+.aboutGiftContent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 538px;
+    background-color: var(--bg-sheet);
+
+    border-radius: 10px 10px 0 0;
+    padding: 16px;
+    border: none !important;
+    box-shadow: none !important;
+    z-index: 1000;
+
+    transition: transform 0.3s ease-in-out;
+}
+
+.aboutGiftContent .aboutThisGift {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.aboutThisGift .giftTitle {
+    width: 100%;
+    height: 68px;
+    padding-top: 12px;
+    padding-bottom: 24px;
+
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+
+
+    color: var(--color);
+}
+
+.aboutThisGift .giftAnimationContainer {
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeBtnContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+}
+
+.closeBtnContainer > div.closeIt {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

@@ -1,0 +1,98 @@
+/* Path: src/pages/gifts/Gifts.module.css */
+
+.gifts {
+    width: 100%;
+    padding: 1rem;
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.gifts .giftsHeader {
+    width: 100%;
+    height: 132px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 24px 0;
+    gap: 8px;
+}
+
+.giftsHeader h1 {
+    width: 100%;
+    text-align: center;
+
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.43px;
+
+    color: var(--color);
+}
+
+.giftsHeader p {
+    max-width: 329px;
+
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.43px;
+    text-align: center;
+
+    color: var(--label-secondary);
+}
+
+.gifts .giftsAvailableToBeSend {
+    width: 100%;
+
+    padding: 8px 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 115px);
+    grid-gap: 8px;
+    justify-content: center;
+}
+
+.gifts .giftsAvailableToBeSend > *:only-child {
+    margin-left: 0;
+    margin-right: auto;
+    justify-content: flex-start;
+}
+
+.gifts .emptyCase {
+    width: 100%;
+    height: 240px;
+    padding: 32px 16px;
+
+    border-radius: 12px;
+    background-color: var(--bg-secondary);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.emptyCase .nothingYet {
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.43px;
+    text-align: center;
+
+    color: var(--color);
+}
+
+.emptyCase .openStore {
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.43px;
+    text-align: center;
+
+    color: var(--primary);
+}
