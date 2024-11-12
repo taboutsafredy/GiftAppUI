@@ -17,8 +17,8 @@ function AppConfig() {
   const location = useLocation();
   
   const excludeJumpPaths = [
-    "/gifts/success",
-    "/:giftId",
+    "/gifts/success/:successId",
+    "/store/:giftId",
     "/profile/recentactions",
   ];
 
@@ -28,7 +28,7 @@ function AppConfig() {
     <>
       <Routes>
         <Route path="/" element={<Store />} />
-        <Route path="/:giftId" element={<GiftDetails />} />
+        <Route path="/store/:giftId" element={<GiftDetails />} />
         <Route path="/gifts" element={<Gifts />} />
         <Route path="/gifts/success/:successId" element={<Success />} />
         <Route path="/leaderboard" element={<Leaderboard />} />

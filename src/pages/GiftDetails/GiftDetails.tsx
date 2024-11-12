@@ -1,33 +1,29 @@
 // Path: src/pages/GiftDetails/GiftDetails.tsx
 
 import { useNavigate, useParams } from "react-router-dom";
-import styles from "./GiftDetails.module.css";
 import { useEffect, useState } from "react";
 import { Ethbg, Tonbg, Usdtbg } from "../../assets/icons/Icons";
-import Button from "../../components/Button/Button";
-import GiftHistoryItem from "../../components/GiftHistoryItem/GiftHistoryItem";
 import { Lottia } from "../../components/Lottia";
 import { useGiftContext } from '../../contexts/GiftContext';
-import { IGift } from "../../type";
+import { useUserContext } from "../../contexts/UserContext";
+import { IGift, IGiftRecentTransaction } from "../../type";
 import { formatQuantity } from "../../utils/formatQuantity";
-import { initInitData, initUtils } from "@telegram-apps/sdk";
+import { initBackButton, initUtils } from "@telegram-apps/sdk";
 import { useTranslation, Trans } from "react-i18next";
-import { initBackButton } from '@telegram-apps/sdk';
+import Button from "../../components/Button/Button";
+import GiftHistoryItem from "../../components/GiftHistoryItem/GiftHistoryItem";
+import styles from "./GiftDetails.module.css";
 
 function GiftDetails () {
     const { t } = useTranslation();
-    const { gifts, loadRecentTransactions, giftsRecentTransaction, purchase } = useGiftContext();
-    const { giftId } = useParams<{ giftId: string }>();
-    const [ gift, setGift ] = useState<IGift | undefined>(undefined);
-    const initData = initInitData();
     const utils = initUtils();
     const navigate = useNavigate();
     const [backButton] = initBackButton();
-
-    backButton.show();
-    backButton.on('click', () => {
-        navigate("/");
-    });
+    const { user } = useUserContext();
+    const { giftId } = useParams<{ giftId: string }>();
+    const { gifts, loadRecentTransactions, purchase } = useGiftContext();
+    const [ gift, setGift ] = useState<IGift | undefined>(undefined);
+    const [ giftsRecentTransaction, setGiftsRecentTransaction ] = useState<IGiftRecentTransaction[]>([]);
 
     useEffect(() => {
         const selectedGift = gifts.find(gift => gift._id === giftId);
@@ -35,23 +31,34 @@ function GiftDetails () {
     }, [gifts, giftId]);
 
     useEffect( () => {
-        if (gift) {
-            loadRecentTransactions(gift?._id);
+        const fetchRecentTransactions = async () => {
+            if (gift) {
+                const transactions = await loadRecentTransactions(gift._id);
+                setGiftsRecentTransaction(transactions);
+            }
         }
-    }, [])
+
+        fetchRecentTransactions();
+    }, []);
+
+    backButton.show();
+    backButton.on('click', () => {
+        navigate("/");
+    });
 
     const handlePurchaseGift = async () => {
-        const getUserId = initData?.user?.id.toString()!;
-        const { invoiceUrl } = await purchase(getUserId, gift?._id!);
-        if (invoiceUrl) {
-            utils.openTelegramLink(invoiceUrl);
+        if ( user && gift ) {
+            const { invoiceUrl } = await purchase(user._id, gift._id!);
+            if (invoiceUrl) {
+                utils.openTelegramLink(invoiceUrl);
+            }
         }
     }
 
     return (
         <div className={styles.giftDetails}>
             <div className={styles.giftCard}>
-                <div className={styles.giftViewer}>
+                <div className={`${styles.giftViewer} ${styles[gift?.name.toLowerCase().replace(/\s+/g, "")+"Gradient"]} `}>
                     <Lottia 
                         name={`gift-${gift?.name.toLocaleLowerCase().replace(/\s/g, "-")}`}
                         autoplay={true}

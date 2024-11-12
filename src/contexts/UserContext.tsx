@@ -7,7 +7,8 @@ import {
     getUserRank, 
     getUserTransactionHistory, 
     getGiftsReceivedByUser, 
-    getTopUsersByGiftsReceived 
+    getTopUsersByGiftsReceived, 
+    getGiftsAvailableToBeSend
 } from "../api/api";
 import { IUser, IUserTransaction, ITopUserByGiftsReceived, IGiftReceived } from "../type";
 import { initInitData } from "@telegram-apps/sdk";
@@ -15,6 +16,7 @@ import { initInitData } from "@telegram-apps/sdk";
 interface IUserContext {
     user: IUser | null;
     rank: number | null;
+    giftsAvailableToBeSend: IUserTransaction[];
     transactionHistory: IUserTransaction[];
     setUser: (user: IUser | null) => void;
     fetchUserTransactions: () => Promise<void>;
@@ -25,6 +27,7 @@ interface IUserContext {
 const initialUserContext: IUserContext = {
     user: null,
     rank: null,
+    giftsAvailableToBeSend: [],
     transactionHistory: [],
     setUser: () => {},
     fetchUserTransactions: async () => {},
@@ -38,6 +41,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<IUser | null>(null);
     const [rank, setRank] = useState<number | null>(null);
     const [transactionHistory, setTransactionHistory] = useState<IUserTransaction[]>([]);
+    const [giftsAvailableToBeSend, setGiftsAvailableToBeSend] = useState<IGiftReceived[]>([]);
     const initData = initInitData();
 
     useEffect(() => {
@@ -45,28 +49,37 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             const currentUserId = initData?.user?.id.toString();
             if (currentUserId) {
                 try {
-                    const getCurrentUser = await getUser(currentUserId.toString());
+                    const getCurrentUser = await getUser(currentUserId);
                     if (getCurrentUser) {
                         setUser(getCurrentUser);
-                    } else {
-                        const createNewUser = await createUser({ 
-                            _id: currentUserId.toString(),
-                            username: initData?.user?.username,
-                            firstName: initData?.user?.firstName,
-                            lastName: initData?.user?.lastName,
-                        });
+                    } 
+                    
+                } catch (error: any) {
+                    if (error.response && error.response.status === 404) {
+                        try {
+                            const createNewUser = await createUser({ 
+                                _id: currentUserId,
+                                username: initData?.user?.username,
+                                firstName: initData?.user?.firstName,
+                                lastName: initData?.user?.lastName,
+                            });
 
-                        if (createNewUser) {
-                            setUser(createNewUser);
+                            if (createNewUser) {
+                                setUser(createNewUser);
+                            }
+                        } catch (createError) {
+                            console.error(" error while create new user! :", createError);
                         }
+                    } else {
+                        console.error("user's initialisation error! :", error);
                     }
-                } catch (error) {
-                    console.error("Erreur lors de l'initialisation de l'utilisateur :", error);
                 }
             }
         };
+
         initUser();
-    }, []);
+
+    }, [initData]);
 
     useEffect(() => {
         if (user) {
@@ -79,10 +92,21 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
                 }
             };
 
+            fetchAvailableToBeSendGifts(user._id);
             fetchUserTransactions();
             fetchRank();
         }
     }, [user]);
+
+    // gifts available that user can send
+    async function fetchAvailableToBeSendGifts (userId: string)  {
+        try {
+            const availableGifts = await getGiftsAvailableToBeSend(userId);
+            setGiftsAvailableToBeSend(availableGifts);
+        } catch (error) {
+            console.error('error getting available gifts! :', error);
+        }
+    };
 
     // user's transaction history
     async function fetchUserTransactions () {
@@ -122,6 +146,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         <UserContext.Provider value={{ 
             user, 
             rank, 
+            giftsAvailableToBeSend,
             transactionHistory, 
             setUser, 
             fetchUserTransactions,

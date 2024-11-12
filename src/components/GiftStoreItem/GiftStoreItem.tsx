@@ -18,7 +18,7 @@ function GiftStoreItem ({ gift }: {gift: IGift}) {
 
     const handleBuyGiftClick = (giftId: string) => {
             hapticFeedback.impactOccurred('light');
-            navigate(`/${giftId}`);
+            navigate(`/store/${giftId}`);
     };
 
     return (

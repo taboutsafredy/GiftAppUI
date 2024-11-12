@@ -21,11 +21,8 @@ const JumpItem = ({ label, name, isActive, onClick }: IJumpItem) => {
 
     return (
         <div className={styles.jumpItem} onClick={onClick}>
-            <Lottia name={lottieName} autoplay={isActive} />
-            <p
-                className={styles.label}
-                style={isActive ? { color: 'var(--primary)' } : { color: 'var(--label-tab-bar)' }}
-            >
+            <Lottia key={lottieName} name={lottieName} autoplay={isActive} />
+            <p className={styles.label} style={isActive ? { color: 'var(--primary)' } : { color: 'var(--label-tab-bar)' }}>
                 {name}
             </p>
         </div>
@@ -59,25 +56,26 @@ function Jump() {
         }
     }, [location.pathname]);
 
-    const handleTabChange = async (tab: string) => {
-        hapticFeedback.selectionChanged();
+    const handleTabChange = (tab: string) => {
+        if (tab !== currentActiveTab) { 
+            hapticFeedback.selectionChanged();
+            setCurrentActiveTab(tab);
 
-        setCurrentActiveTab(tab);
-        
-        switch (tab) {
-            case "Gifts":
-              navigate("/gifts");
-              break;
-            case "Leaderboard":
-              navigate("/leaderboard")
-              break;
-            case "Profile":
-              navigate("/profile");
-              break;
-            default:
-              navigate("/");
-              break;
-          }
+            switch (tab) {
+                case "Gifts":
+                    navigate("/gifts");
+                    break;
+                case "Leaderboard":
+                    navigate("/leaderboard");
+                    break;
+                case "Profile":
+                    navigate("/profile");
+                    break;
+                default:
+                    navigate("/");
+                    break;
+            }
+        }
     };
    
     const jumpItems: IJumpItem[] = [
@@ -90,12 +88,8 @@ function Jump() {
     return (
         <div className={styles.Jump}>
             {jumpItems.map((item, index) => (
-                <div
-                    key={index}
-                    className={styles.jumpItemWrapper}
-                >
+                <div key={index} className={styles.jumpItemWrapper}>
                     <JumpItem
-                        key={index+1}
                         label={item.label}
                         name={item.name}
                         isActive={item.isActive}
