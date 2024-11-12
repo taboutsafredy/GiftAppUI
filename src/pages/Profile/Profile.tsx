@@ -30,6 +30,8 @@ function Profile() {
         backButton.on('click', () => {
             navigate("/leaderboard");
         });
+    } else {
+        backButton.hide();
     }
 
     useEffect(() => {
