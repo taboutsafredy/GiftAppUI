@@ -135,17 +135,21 @@
 }
 
 .emptyCase h2 {
+    width: 100%;
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.43px;
+    text-align: center;
 
     color: var(--color);
 }
 
 .emptyCase p {
+    width: 100%;
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.08px;
+    text-align: center;
 
     color: var(--color);
 }

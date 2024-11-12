@@ -5,11 +5,15 @@ import GiftStoreItem from "../../components/GiftStoreItem/GiftStoreItem";
 import styles from "./Store.module.css";
 import { useGiftContext } from '../../contexts/GiftContext';
 import { useTranslation } from "react-i18next";
+import { initBackButton } from "@telegram-apps/sdk";
 
 
 function Store() {
     const { gifts } = useGiftContext();
     const { t } = useTranslation();
+    const [backButton] = initBackButton();
+
+    backButton.hide();
 
     return (
         <div className={styles.store}>

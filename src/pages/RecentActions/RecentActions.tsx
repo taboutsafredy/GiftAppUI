@@ -56,7 +56,7 @@ function RecentActions () {
                         />
                         <h1>{t('emptyHistoryTitle')}</h1>
                         <p>
-                          <Trans i18nKey="emptyHistoryDescription "comcomponents={{ br: <br /> }} />
+                          <Trans i18nKey="emptyHistoryDescription" components={{ br: <br />}} />
                         </p>
 
                     <Button labelOne={t('openStore')} onClickOne={() => handleOpenStore()}/>
@@ -67,7 +67,6 @@ function RecentActions () {
 }
 
 function TransactionGroup({ date, actions }: { date: string; actions: IUserTransaction[] }) {
-
     const formattedDate = new Date(date).toLocaleDateString("en-GB", {
         day: "numeric",
         month: "long",
@@ -83,7 +82,6 @@ function TransactionGroup({ date, actions }: { date: string; actions: IUserTrans
         </div>
       </>
     );
-  }
-  
+}
 
 export default RecentActions;

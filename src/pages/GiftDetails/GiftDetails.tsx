@@ -91,7 +91,7 @@ function GiftDetails () {
                          <Lottia 
                                 name={`emoji-balloons`} 
                                 autoplay={true}
-                                style={{width: "80px", height: "80px"}}
+                                style={{width: "70px", height: "70px"}}
                         />
                         <h2>{t('emptyHistoryTitle')}</h2>
                         <p><Trans i18nKey="emptyHistoryDescription" components={{ br: <br /> }} /></p>
